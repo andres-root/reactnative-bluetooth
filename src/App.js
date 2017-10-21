@@ -9,7 +9,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  FlatList
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -24,14 +25,16 @@ export default class App extends Component<{}> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to Flash.Beer
+          Select Your Table
         </Text>
-        <Text style={styles.instructions}>
-          To get started register
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <FlatList
+          data={[
+            {key: 'Table 1'},
+            {key: 'Table 2'},
+            {key: 'Table 3'},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+        />
       </View>
     );
   }
@@ -53,5 +56,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
   },
 });
