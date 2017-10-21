@@ -9,12 +9,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,
-  TouchableOpacity
+  View
 } from 'react-native';
-
-// Bluetooth Dependencies
-import BluetoothSerial from 'react-native-bluetooth-serial'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -22,11 +18,6 @@ const instructions = Platform.select({
   android: 'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu',
 });
-
-const Button = ({ title, onPress, style, textStyle }) =>
-  <TouchableOpacity style={[ styles.button, style ]} onPress={onPress}>
-    <Text style={[ styles.buttonText, textStyle ]}>{title.toUpperCase()}</Text>
-  </TouchableOpacity>
 
 export default class App extends Component<{}> {
   render() {
@@ -41,12 +32,6 @@ export default class App extends Component<{}> {
         <Text style={styles.instructions}>
           {instructions}
         </Text>
-        <Button
-              textStyle={{ color: '#000000' }}
-              style={styles.buttonRaised}
-              title='Cancel Discovery'
-              onPress={() => this.cancelDiscovery()} 
-        />
       </View>
     );
   }
@@ -69,11 +54,4 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-  button: {
-    height: 36,
-    margin: 5,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
 });
