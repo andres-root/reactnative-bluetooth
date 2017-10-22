@@ -10,7 +10,9 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList
+  FlatList,
+  ScrollView,
+  TouchableHighlight
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -21,21 +23,44 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      isEnabled: false,
+      discovering: false,
+      devices: [
+        {key: 'a', name: 'Table 1'},
+        {key: 'b', name: 'Table 2'},
+        {key: 'c', name: 'Table 3'}
+      ],
+      unpairedDevices: [],
+      connected: false,
+      section: 0
+    }
+  }
+
+  _connect = (device) => {
+    alert(device);
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Select Your Table
-        </Text>
-        <FlatList
-          data={[
-            {key: 'Table 1'},
-            {key: 'Table 2'},
-            {key: 'Table 3'},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-        />
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.welcome}>
+            Select Your Table
+          </Text>
+          <FlatList
+            data={this.state.devices}
+            renderItem={({item}) => 
+              <TouchableHighlight onPress={() => this._connect(item.key)}>
+                <Text style={styles.item}>{item.name}</Text>
+              </TouchableHighlight>
+            }
+          />
+        </View>
+      </ScrollView>
     );
   }
 }
