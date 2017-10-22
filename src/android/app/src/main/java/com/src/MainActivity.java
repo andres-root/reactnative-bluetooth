@@ -1,6 +1,7 @@
 package com.src;
 
 import com.facebook.react.ReactActivity;
+import com.rusel.RCTBluetoothSerial.*;
 
 public class MainActivity extends ReactActivity {
 
