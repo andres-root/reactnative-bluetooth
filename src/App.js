@@ -36,9 +36,7 @@ export default class FlashBeer extends React.Component {
           passProps: {index: 1},
         }}
         style={{
-          flex: 1,
-          // justifyContent: 'center',
-          // alignItems: 'center'
+          flex: 1
         }}
       />
     )
@@ -111,15 +109,26 @@ class Tables extends React.Component {
     alert(device);
   }
 
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#CED0CE",
+          marginLeft: "14%"
+        }}
+      />
+    );
+  };
+
   render() {
     return (
       <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.welcome}>
-            Select Your Table
-          </Text>
+        <View style={styles.tablesContainer}>
           <FlatList
             data={this.state.devices}
+            ItemSeparatorComponent={this.renderSeparator}
             renderItem={({item}) => 
               <TouchableHighlight onPress={() => this._connect(item.key)}>
                 <Text style={styles.item}>{item.name}</Text>
@@ -191,7 +200,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
     fontSize: 20,
@@ -204,9 +213,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   item: {
-    padding: 10,
     fontSize: 18,
     height: 44,
+    padding: 10,
+    width: '100%'
   },
   searchButton: {
     alignItems: 'center',
@@ -221,5 +231,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  tablesContainer: {
+    backgroundColor: '#F5FCFF'
   }
 });
