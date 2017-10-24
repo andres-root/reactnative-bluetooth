@@ -12,8 +12,11 @@ import {
   View,
   FlatList,
   ScrollView,
-  TouchableHighlight
+  TouchableHighlight,
+  Button,
+  NavigatorIOS
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -22,7 +25,70 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component<{}> {
+export default class FlashBeer extends React.Component {
+  render() {
+    return (
+      <NavigatorIOS
+        initialRoute={{
+          component: Home,
+          title: 'Home',
+          passProps: {index: 1},
+        }}
+        style={{
+          flex: 1,
+          // justifyContent: 'center',
+          // alignItems: 'center'
+        }}
+      />
+    )
+  }
+}
+
+class Home extends React.Component {
+  static propTypes = {
+    route: PropTypes.shape({
+      title: PropTypes.string.isRequired
+    }),
+    navigator: PropTypes.object.isRequired,
+  }
+
+  constructor(props, context) {
+    super(props, context);
+    this._onForward = this._onForward.bind(this);
+  }
+
+  _onForward() {
+    this.props.navigator.push({
+      component: Search,
+      title: 'Tables',
+      passProps: {}
+    });
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Button style={styles.SearchButton}
+          onPress={this._onForward}
+          title="Search Table"
+        />
+      </View>
+    )
+  }
+}
+
+class Search extends React.Component {
+  static propTypes = {
+    route: PropTypes.shape({
+      title: PropTypes.string.isRequired
+    }),
+    navigator: PropTypes.object.isRequired,
+  }
+
+  // constructor(props, context) {
+  //   super(props, context);
+  //   this._onForward = this._onForward.bind(this);
+  // }
 
   constructor (props) {
     super(props)
@@ -65,6 +131,60 @@ export default class App extends Component<{}> {
   }
 }
 
+// export default class NormalApp extends Component<{}> {
+
+//   constructor (props) {
+//     super(props)
+//     this.state = {
+//       isEnabled: false,
+//       discovering: false,
+//       devices: [
+//         {key: 'a', name: 'Table 1'},
+//         {key: 'b', name: 'Table 2'},
+//         {key: 'c', name: 'Table 3'}
+//       ],
+//       unpairedDevices: [],
+//       connected: false,
+//       section: 0
+//     }
+//   }
+
+//   _connect = (device) => {
+//     alert(device);
+//   }
+
+//   searchView() {
+//     return (
+//       <Button
+//         onPress={() => device('search!')}
+//         title="Search Table"
+//         color="#841584"
+//         accessibilityLabel="Search table on this bar"
+//       />
+//     );
+//   }
+
+//   render() {
+//     return (
+//       <ScrollView>
+//         <View style={styles.container}>
+//           <Text style={styles.welcome}>
+//             Select Your Table
+//           </Text>
+//           <FlatList
+//             data={this.state.devices}
+//             renderItem={({item}) => 
+//               <TouchableHighlight onPress={() => this._connect(item.key)}>
+//                 <Text style={styles.item}>{item.name}</Text>
+//               </TouchableHighlight>
+//             }
+//           />
+//         </View>
+//       </ScrollView>
+//     );
+//   }
+// }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -87,4 +207,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  SearchButton: {
+    backgroundColor: '#fab71b',
+    height: 20,
+    width: 100
+  }
 });
