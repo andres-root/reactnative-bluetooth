@@ -13,6 +13,7 @@ import {
   FlatList,
   ScrollView,
   TouchableHighlight,
+  TouchableOpacity,
   Button,
   NavigatorIOS
 } from 'react-native';
@@ -59,7 +60,7 @@ class Home extends React.Component {
 
   _onForward() {
     this.props.navigator.push({
-      component: Search,
+      component: Tables,
       title: 'Tables',
       passProps: {}
     });
@@ -68,16 +69,16 @@ class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button style={styles.SearchButton}
-          onPress={this._onForward}
-          title="Search Table"
-        />
+        <TouchableOpacity style={styles.searchButton}
+          onPress={this._onForward}>
+          <Text style={styles.searchButtonText}>{"SEARCH TABLES"}</Text>
+        </TouchableOpacity> 
       </View>
     )
   }
 }
 
-class Search extends React.Component {
+class Tables extends React.Component {
   static propTypes = {
     route: PropTypes.shape({
       title: PropTypes.string.isRequired
@@ -207,9 +208,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
-  SearchButton: {
+  searchButton: {
+    alignItems: 'center',
     backgroundColor: '#fab71b',
-    height: 20,
-    width: 100
+    height: 40,
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    width: 150
+  },
+  searchButtonText: {
+    color: '#ffffff',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 });
