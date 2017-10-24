@@ -115,8 +115,7 @@ class Tables extends React.Component {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#CED0CE",
-          marginLeft: "14%"
+          backgroundColor: "#CED0CE"
         }}
       />
     );
@@ -130,9 +129,9 @@ class Tables extends React.Component {
             data={this.state.devices}
             ItemSeparatorComponent={this.renderSeparator}
             renderItem={({item}) => 
-              <TouchableHighlight onPress={() => this._connect(item.key)}>
+              <TouchableOpacity onPress={() => this._connect(item.key)}>
                 <Text style={styles.item}>{item.name}</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             }
           />
         </View>
@@ -200,7 +199,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#ffffff'
   },
   welcome: {
     fontSize: 20,
